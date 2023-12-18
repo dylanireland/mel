@@ -10,7 +10,7 @@
     flex-direction: column;
     min-height: calc(100vh - 4rem);
     margin: 0;
-    background-color: #ECE3CE;
+    background-color: #3A4D39;
     padding: 2rem 6rem;
     width: 100%;
     color: black;
@@ -35,20 +35,38 @@
     left: 50%;
     transform: translate(-50%, -50%);
     align-items: center;
+    gap: 1em;
 }
 
 #root > div button {
     padding: 0.5em 1em;
-    background-color: #739072;
+    background-color: #4b6949;
     border: 0.125em solid #3A4D39;
     font-size: 1.5em;
     border-radius: 0.5em;
-    color: #ECE3CE;
     cursor: pointer;
 }
 
 #root > div p {
     margin: 0 1em;
     font-size: 1.5em;
+}
+
+img {
+    animation-name: spin;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    width: 20%;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
 

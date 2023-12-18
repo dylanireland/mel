@@ -1,0 +1,18 @@
+#characterChooser {
+    background-color: white;
+    border-radius: 1em;
+    padding: 1em;
+    list-style-type: none;
+}
+
+#characterChooser button {
+    margin: auto;
+}
+
+#characterChooser hr {
+    color: #ECE3CE
+}
+
+#characterChooser hr:last-child {
+    display: none;
+}

@@ -1,17 +1,20 @@
 const JUMP_STRENGTH = 15;
 const GRAVITY = 0.6;
+const FLOOR = 345;
+const LEFT_OFFSET = 60;
 
 export default class Mel {
 	constructor(ctx) {
 		this.ctx = ctx;
-		this.y = 100;
+		this.y = FLOOR;
+		this.x = LEFT_OFFSET;
 		this.isJumping = false;
 		this.jumpStrength = JUMP_STRENGTH;
 		this.spritesheet = new Image();
 		this.spritesheet.src = "/assets/mel/spritesheet.png";
 		this.frameX = 1;
 		this.frameY = 1;
-		this.frameRate = 15;
+		this.frameRate = 10;
 		this.timestamp = 0;
 	}
 
@@ -22,7 +25,7 @@ export default class Mel {
 			this.frameY * this.height,
 			this.width,
 			this.height,
-			20,
+			this.x,
 			this.y,
 			this.width,
 			this.height
@@ -55,8 +58,8 @@ export default class Mel {
 		}
 
 		// Check ground collision
-		if (this.y > 100) {
-			this.y = 100;
+		if (this.y > FLOOR) {
+			this.y = FLOOR;
 			this.isJumping = false;
 			this.jumpStrength = JUMP_STRENGTH;
 		}

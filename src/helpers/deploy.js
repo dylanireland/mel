@@ -7,6 +7,7 @@ import {
 
 export default async function deploy(
 	provider,
+	contractClient,
 	entrypoint,
 	args,
 	publicKey,
@@ -16,7 +17,7 @@ export default async function deploy(
 
 	args = RuntimeArgs.fromMap(args);
 
-	const deploy = props.contractClient.callEntrypoint(
+	const deploy = contractClient.callEntrypoint(
 		entrypoint,
 		args,
 		CLPublicKey.fromHex(publicKey),
@@ -27,10 +28,7 @@ export default async function deploy(
 	const deployJson = DeployUtil.deployToJson(deploy);
 
 	try {
-		const result = await provider.sign(
-			JSON.stringify(deployJson),
-			props.publicKey
-		);
+		const result = await provider.sign(JSON.stringify(deployJson), publicKey);
 
 		if (result.cancelled) {
 			alert("Signature request cancelled.");
@@ -40,7 +38,7 @@ export default async function deploy(
 		const signedDeploy = DeployUtil.setSignature(
 			deploy,
 			result.signature,
-			CLPublicKey.fromHex(props.publicKey)
+			CLPublicKey.fromHex(publicKey)
 		);
 
 		const signedDeployJson = DeployUtil.deployToJson(signedDeploy);
@@ -56,8 +54,8 @@ export default async function deploy(
 			throw new Error(errorMessage);
 		}
 
-		alert(await response.text());
+		return await response.text();
 	} catch (error) {
-		alert(error.message);
+		throw error;
 	}
 }

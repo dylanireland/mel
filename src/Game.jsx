@@ -1,33 +1,72 @@
-import "./assets/css/game.css";
-import { useEffect } from "react";
+import "../assets/css/game.css";
+import { useEffect, useRef, useState } from "react";
 import Mel from "./Mel";
+import Background from "./Background.js";
+import Obstacle from "./Obstacle.js";
 
 export default function Game() {
-	const canvas = document.getElementById("gameCanvas");
-	const ctx = canvas.getContext("2d");
+	let canvas, ctx, mel, background, obstacle;
+	const canvasRef = useRef(null);
+	const [gameOver, setGameOver] = useState(false);
+	const animationRef = useRef();
+	useEffect(() => {
+		canvas = document.getElementById("gameCanvas");
+		ctx = canvas.getContext("2d");
 
-	canvas.width = 600;
-	canvas.height = 400;
+		// useEffect
 
-	let obstacleX = canvas.width;
+		canvas.width = 600;
+		canvas.height = 400;
 
-	const mel = new Mel(ctx);
+		//let obstacleX = canvas.width;
 
-	function drawObstacle() {
-		ctx.fillStyle = "red";
-		ctx.fillRect(obstacleX, 160, 20, 40);
-	}
+		background = new Background(canvas);
+		mel = new Mel(ctx);
+		obstacle = new Obstacle(ctx);
+
+		document.addEventListener("keydown", event => handleJumpInitiation(event));
+
+		initialize();
+
+		return () => {
+			cancelAnimationFrame(animationRef.current);
+			document.removeEventListener("keydown", handleJumpInitiation);
+		};
+	}, []);
+
+	useEffect(() => {
+		if (gameOver) {
+			cancelAnimationFrame(animationRef.current);
+		}
+	}, [gameOver]);
+
+	function drawObstacle() {}
 
 	function update() {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		background.update();
 		mel.update();
-
-		drawObstacle();
-		requestAnimationFrame(update);
+		obstacle.update();
+		checkForCollision();
+		if (!gameOver) {
+			animationRef.current = requestAnimationFrame(update);
+		}
 	}
 
 	async function initialize() {
-		update();
+		animationRef.current = requestAnimationFrame(update);
+	}
+
+	function checkForCollision() {
+		//console.log(Math.abs(mel.x - obstacle.x));
+		//console.log(Math.abs(mel.y - obstacle.y));
+		if (
+			Math.abs(mel.x - obstacle.x) < 100 &&
+			Math.abs(mel.y - obstacle.y) < 100
+		) {
+			console.log("Collision detected!");
+			setGameOver(true);
+		}
 	}
 
 	function handleJumpInitiation(event) {
@@ -36,15 +75,9 @@ export default function Game() {
 		}
 	}
 
-	initialize();
-
-	useEffect(() => {
-		document.addEventListener("keydown", event => handleJumpInitiation(event));
-	}, []);
-
 	return (
 		<>
-			<canvas id="gameCanvas"></canvas>
+			<canvas id="gameCanvas" ref={canvasRef}></canvas>
 		</>
 	);
 }
