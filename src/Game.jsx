@@ -47,6 +47,7 @@ export default function Game() {
 		background.update();
 		mel.update();
 		obstacle.update();
+
 		checkForCollision();
 		if (!gameOver) {
 			animationRef.current = requestAnimationFrame(update);
@@ -58,11 +59,13 @@ export default function Game() {
 	}
 
 	function checkForCollision() {
-		//console.log(Math.abs(mel.x - obstacle.x));
-		//console.log(Math.abs(mel.y - obstacle.y));
 		if (
-			Math.abs(mel.x - obstacle.x) < 100 &&
-			Math.abs(mel.y - obstacle.y) < 100
+			Math.abs(
+				mel.getAnchoredPosition("x") - obstacle.getAnchoredPosition("x")
+			) < 20 &&
+			Math.abs(
+				mel.getAnchoredPosition("y") - obstacle.getAnchoredPosition("y")
+			) < 20
 		) {
 			console.log("Collision detected!");
 			setGameOver(true);

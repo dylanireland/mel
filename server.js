@@ -58,11 +58,12 @@ app.get("/getMelsOwned", async (req, res) => {
 		const tokenIdToMetadata = await getTokenMetadatas(tokenIndexes);
 		res.send(tokenIdToMetadata);
 	} catch (error) {
-		console.log(error);
-		if (error.message == "Query failed") {
-			error.message = "You don't own any Mels!";
+		if (error.code == 7979) {
+			res.status(400).send("Node connection refused");
+		} else if (error.code == -32003) {
+			res.status(400).send("You don't own any Mels!");
 		}
-		res.status(400).send(error.message);
+
 		return;
 	}
 });
@@ -152,7 +153,7 @@ function tokenIndexesFromPage(page, pageIndex) {
 async function getTokenMetadatas(tokenIndexes) {
 	let metadatas = [];
 	for (let i = 0; i < tokenIndexes.length; i++) {
-		await new Promise(r => setTimeout(r, 5000));
+		await new Promise(r => setTimeout(r, 500));
 		const response = await melCEP78Contract.queryContractDictionary(
 			`metadata_custom_validated`,
 			tokenIndexes[i].toString()

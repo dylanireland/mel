@@ -38,12 +38,20 @@ export default class Obstacle {
 		// Optionally reset or remove obstacle if it goes off screen
 		if (this.x + this.width < 0) {
 			this.x = START_X; // Reset the position to start again from the right
+			this.updateHeight();
 			// Or handle obstacle removal logic here
 		}
 
 		this.updateFrames();
 		this.draw();
 		this.incrementTimestamp();
+	}
+
+	updateHeight() {
+		//this.y = FLOOR - Math.floor(Math.random() * 500);
+		const FLOOR_OFFSET = 60; // Enemy painted too low under this number
+		//this.y = FLOOR - FLOOR_OFFSET - Math.floor(Math.random() * 500);
+		this.y = FLOOR - FLOOR_OFFSET - Math.floor(Math.random() * 200);
 	}
 
 	updateFrames() {
@@ -60,5 +68,13 @@ export default class Obstacle {
 
 	incrementTimestamp() {
 		this.timestamp += 1;
+	}
+
+	getAnchoredPosition(axis) {
+		if (axis === "x") {
+			return this.x + this.width / 2 - 10;
+		} else if (axis === "y") {
+			return this.y + this.height / 2;
+		}
 	}
 }

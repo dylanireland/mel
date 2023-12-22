@@ -15,12 +15,15 @@ export default function ChooseCharacter(props) {
 		props.setWaiting(true);
 		try {
 			const response = await getMelsOwned();
+			if (!response.ok) {
+				throw new Error(await response.text());
+			}
 			const result = await response.json();
 			props.setMels(parseMetadata(result));
-			props.setWaiting(false);
 		} catch (error) {
 			alert(error.message);
 		}
+		props.setWaiting(false);
 	}
 
 	function parseMetadata(nfts) {
