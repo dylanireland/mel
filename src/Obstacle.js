@@ -1,7 +1,7 @@
-const OBSTACLE_SPEED = 5; // Adjust speed as needed
-const OBSTACLE_WIDTH = 1200; // Adjust width as needed
-const OBSTACLE_HEIGHT = 150; // Adjust height as needed
-const START_X = 800; // Start position on the x-axis, adjust based on canvas width
+const OBSTACLE_SPEED = 5;
+const OBSTACLE_WIDTH = 1200;
+const OBSTACLE_HEIGHT = 150;
+const START_X = 800;
 const FLOOR = 345;
 
 export default class Obstacle {
@@ -48,10 +48,10 @@ export default class Obstacle {
 	}
 
 	updateHeight() {
-		//this.y = FLOOR - Math.floor(Math.random() * 500);
-		const FLOOR_OFFSET = 60; // Enemy painted too low under this number
-		//this.y = FLOOR - FLOOR_OFFSET - Math.floor(Math.random() * 500);
-		this.y = FLOOR - FLOOR_OFFSET - Math.floor(Math.random() * 200);
+		const HEIGHT_VARIATION = 200; // The max height the coin can be painted
+		const FLOOR_OFFSET = 60; // Coin painted too low under this number
+		this.y =
+			FLOOR - FLOOR_OFFSET - Math.floor(Math.random() * HEIGHT_VARIATION);
 	}
 
 	updateFrames() {

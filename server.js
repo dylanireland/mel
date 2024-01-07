@@ -19,7 +19,7 @@ app.use(cors());
 
 const CONTRACT_HASH =
 	"hash-1485a80c954781185ef4409dbb15f581df56245a9352ed54d4840aa6c9efcc6c";
-const NODE_URL = "http://193.34.212.48:7777/rpc";
+const NODE_URL = "http://5.9.6.115:7777/rpc";
 const client = new CasperClient(NODE_URL);
 const melCEP78Contract = new Contracts.Contract(client);
 const casperServiceByJsonRPC = new CasperServiceByJsonRPC(NODE_URL);

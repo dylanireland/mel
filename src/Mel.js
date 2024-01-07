@@ -55,7 +55,7 @@ export default class Mel {
 		if (this.isJumping) {
 			this.y -= this.jumpStrength;
 			this.jumpStrength -= GRAVITY;
-			this.adjustFramerate(4);
+			this.updateJumpFrames();
 		} else {
 			this.adjustFramerate(10);
 		}
@@ -79,10 +79,9 @@ export default class Mel {
 
 	updateFrames() {
 		if (this.timestamp % this.frameRate == 0) {
+			// Dont do framerate based approach for jumping. Get rid of the roll and do it based off jump strength < 0 || == 0 || > 0
 			// Stagger Frames
-			if (this.isJumping) {
-				this.updateJumpFrames();
-			} else {
+			if (!this.isJumping) {
 				this.updateRunningFrames();
 			}
 		}
@@ -101,18 +100,20 @@ export default class Mel {
 	}
 
 	updateJumpFrames() {
+		const HOVER_OFFSET = 2; // Time in which Mel "floats"
 		// Handle Spritesheet X frames
-		if (this.frameY != 2 && this.frameY != 3) {
-			this.frameX = 0;
+		if (this.jumpStrength > HOVER_OFFSET) {
+			this.frameX = 2;
 			this.frameY = 2;
-		} else if (this.frameX < 6) {
-			this.frameX++;
-		} else if (this.frameX == 6) {
-			if (this.frameY == 2) {
-				this.frameX = 0;
-				this.frameY = 3;
-			}
-			// Don't update
+		} else if (
+			this.jumpStrength < HOVER_OFFSET &&
+			this.jumpStrength > -HOVER_OFFSET
+		) {
+			this.frameX = 3;
+			this.frameY = 2;
+		} else if (this.jumpStrength < -HOVER_OFFSET) {
+			this.frameX = 1;
+			this.frameY = 3;
 		}
 	}
 

@@ -60,7 +60,11 @@ export default function Menu(props) {
 	if (waiting) {
 		jsx.push(<img src="/assets/images/loading.png" key="loadingImage"></img>);
 	} else {
-		jsx.push(<div key="buttons">{button}</div>);
+		jsx.push(
+			<div id="menuButtons" key="buttons">
+				{button}
+			</div>
+		);
 	}
 
 	return <> {jsx} </>;

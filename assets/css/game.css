@@ -2,10 +2,23 @@ body {
     margin: 0;
 }
 
-#gameCanvas {
+#gameDiv {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 1000px;
     transform: translate(-50%, -50%);
+}
+
+#gameDiv>p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 1em 0 0 1em;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+#gameCanvas {
+    width: 100%;
 }

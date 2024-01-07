@@ -27,7 +27,7 @@
     margin-block: 2em;
 }
 
-#root > div {
+#menuButtons {
     display: flex;
     flex-direction: row;
     position: absolute;
@@ -38,7 +38,7 @@
     gap: 1em;
 }
 
-#root > div button {
+#menuButtons button {
     padding: 0.5em 1em;
     background-color: #4b6949;
     border: 0.125em solid #3A4D39;
@@ -47,7 +47,7 @@
     cursor: pointer;
 }
 
-#root > div p {
+#menuButtons p {
     margin: 0 1em;
     font-size: 1.5em;
 }
