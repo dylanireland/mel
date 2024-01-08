@@ -27,15 +27,17 @@ function App() {
 
 	if (activeMel == null) {
 		return (
-			<Menu
-				provider={provider}
-				contractClient={contractClient}
-				publicKey={publicKey}
-				setPublicKey={setPublicKey}
-				contractHash={contractHash}
-				activeMel={activeMel}
-				setActiveMel={setActiveMel}
-			/>
+			<div id="menu">
+				<Menu
+					provider={provider}
+					contractClient={contractClient}
+					publicKey={publicKey}
+					setPublicKey={setPublicKey}
+					contractHash={contractHash}
+					activeMel={activeMel}
+					setActiveMel={setActiveMel}
+				/>
+			</div>
 		);
 	} else {
 		return <Game />;

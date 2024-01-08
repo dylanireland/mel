@@ -8,21 +8,34 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    min-height: calc(100vh - 4rem);
+    height: 100vh;
+    min-height: 100vh;
     margin: 0;
-    background-color: #3A4D39;
-    padding: 2rem 6rem;
+    background-color: #0E1428;
     width: 100%;
-    color: black;
+    color: white;
 }
 
-#root > h1 {
+#menu {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    margin: 0;
+    background-image: url("../showoff/bg.png");
+    background-size: cover;
+    width: 100%;
+    color: white;
+    padding-top: 2em
+}
+
+#menu h1 {
     font-family: unaessthetic;
     font-size: 10rem;
     margin: 0;
 }
 
-#root > p {
+#menu > p {
     font-size: 1.25em;
     margin-block: 2em;
 }
@@ -40,11 +53,11 @@
 
 #menuButtons button {
     padding: 0.5em 1em;
-    background-color: #4b6949;
-    border: 0.125em solid #3A4D39;
+    background-color: #7B9E89;
     font-size: 1.5em;
     border-radius: 0.5em;
     cursor: pointer;
+    color: #0E1428
 }
 
 #menuButtons p {
